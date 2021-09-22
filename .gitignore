@@ -31,10 +31,11 @@
 /ffplay
 /ffprobe
 /config.asm
-/config.h
+# /config.h
 /coverage.info
 /avversion.h
 /lcov/
 /src
 /mapfile
 /tools/python/__pycache__/
+__pycache__/

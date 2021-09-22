@@ -25,6 +25,7 @@
  */
 
 #define BITSTREAM_READER_LE
+#include "libavutil/intmath.h"
 #include "avcodec.h"
 #include "get_bits.h"
 #include "internal.h"

@@ -20,6 +20,7 @@
  */
 
 #include <stdint.h>
+#include "libavutil/intmath.h"
 #include "libavutil/common.h"
 #include "libavutil/thread.h"
 #include "aacps.h"

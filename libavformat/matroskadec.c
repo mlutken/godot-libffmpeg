@@ -33,6 +33,7 @@
 #include <inttypes.h>
 #include <stdio.h>
 
+#include "libavutil/intmath.h"
 #include "libavutil/avstring.h"
 #include "libavutil/base64.h"
 #include "libavutil/bprint.h"
