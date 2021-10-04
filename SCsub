@@ -34,7 +34,7 @@ else:
 thirdparty_obj = []
 
 # Not unbundled for now as they are not commonly available as shared library
-thirdparty_dir = "#modules/libffmpeg/"
+thirdparty_dir = "#modules/ffmpeg/"
 thirdparty_sources = [
     "libavdevice/alldevices.c",
     "libavdevice/alsa.c",
