@@ -25,6 +25,20 @@ else:
     env_ffmpeglib.Append(CCFLAGS=["-include", '"libavutil/internal.h"'])
 #    env_ffmpeglib.Append(CCFLAGS=["-include", '"libavutil/intmath.h"'])
 
+# TEMPORARY: Only until all webm example code has been removed
+env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libsimplewebm", "#thirdparty/libsimplewebm/libwebm", "#thirdparty/libwebm"])
+if env["builtin_libogg"]:
+    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libogg"])
+if env["builtin_libvorbis"]:
+    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libvorbis"])
+if env["builtin_opus"]:
+    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/opus"])
+
+if env["builtin_libvpx"]:
+    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libvpx"])
+    #SConscript("libvpx/SCsub")
+
+
 #libavutil/internal.h
 
 
