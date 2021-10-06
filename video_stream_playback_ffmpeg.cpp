@@ -63,14 +63,18 @@ private:
 /**/
 
 VideoStreamPlaybackFFMpeg::VideoStreamPlaybackFFMpeg() :
+		texture(memnew(ImageTexture))
+{
 
-		texture(memnew(ImageTexture)) {}
+}
+
 VideoStreamPlaybackFFMpeg::~VideoStreamPlaybackFFMpeg() {
 	delete_pointers();
 }
 
 bool VideoStreamPlaybackFFMpeg::open_file(const String &p_file) {
 	file_name = p_file;
+	auto file_name_u8_FIXMENM = p_file.utf8();
 	webm = memnew(WebMDemuxer(new MkvReader(file_name), 0, audio_track));
 	if (webm->isOpen()) {
 		video = memnew(VPXDecoder(*webm, OS::get_singleton()->get_processor_count()));

@@ -45,6 +45,7 @@ RES ResourceFormatLoaderFFMpeg::load(const String &p_path, const String &p_origi
 
 void ResourceFormatLoaderFFMpeg::get_recognized_extensions(List<String> *p_extensions) const {
 	p_extensions->push_back("webx");
+	p_extensions->push_back("mp4");
 }
 
 bool ResourceFormatLoaderFFMpeg::handles_type(const String &p_type) const {
@@ -53,7 +54,7 @@ bool ResourceFormatLoaderFFMpeg::handles_type(const String &p_type) const {
 
 String ResourceFormatLoaderFFMpeg::get_resource_type(const String &p_path) const {
 	String el = p_path.get_extension().to_lower();
-	if (el == "webx") {
+	if (el == "webx" || el == "mp4") {
 		return "VideoStreamFFMpeg";
 	}
 	return "";
