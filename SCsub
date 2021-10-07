@@ -2032,9 +2032,44 @@ env_thirdparty.disable_warnings()
 env_thirdparty.add_source_files(thirdparty_obj, thirdparty_sources)
 env.modules_sources += thirdparty_obj
 
-# Godot source files
-
+#
 module_obj = []
+
+# avcpp (ffmpeg C++ wrapper) sources
+avcpp_obj = []
+avcpp_dir = "#modules/avcpp/"
+avcpp_sources = [
+    "src/audioresampler.cpp",
+    "src/averror.cpp",
+    "src/avtime.cpp",
+    "src/avutils.cpp",
+    "src/codeccontext.cpp",
+    "src/codec.cpp",
+    "src/dictionary.cpp",
+    "src/formatcontext.cpp",
+    "src/format.cpp",
+    "src/frame.cpp",
+    "src/packet.cpp",
+    "src/pixelformat.cpp",
+    "src/rational.cpp",
+    "src/rect.cpp",
+    "src/sampleformat.cpp",
+    "src/stream.cpp",
+    "src/timestamp.cpp",
+    "src/videorescaler.cpp",
+    "src/filters/buffersink.cpp",
+    "src/filters/buffersrc.cpp",
+    "src/filters/filtercontext.cpp",
+    "src/filters/filter.cpp",
+    "src/filters/filtergraph.cpp",
+    "src/filters/filterpad.cpp"
+]
+
+avcpp_sources = [avcpp_dir + file for file in avcpp_sources]
+env_ffmpeglib.add_source_files(module_obj, avcpp_sources)
+env_ffmpeglib.Prepend(CPPPATH=["#modules/avcpp/src"])
+
+# Godot source files
 
 env_ffmpeglib.add_source_files(module_obj, "*.cpp")
 env.modules_sources += module_obj

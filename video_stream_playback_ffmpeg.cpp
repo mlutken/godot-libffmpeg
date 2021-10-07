@@ -17,6 +17,10 @@
 // libwebm
 #include <mkvparser/mkvparser.h>
 
+extern "C" {
+#include <libavutil/imgutils.h>
+}
+
 class MkvReader : public mkvparser::IMkvReader {
 public:
 	MkvReader(const String &p_file) {
