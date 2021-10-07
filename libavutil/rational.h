@@ -33,6 +33,8 @@
 #include <limits.h>
 #include "attributes.h"
 
+int fixme_mult(int a, int b);
+
 /**
  * @defgroup lavu_math_rational AVRational
  * @ingroup lavu_math

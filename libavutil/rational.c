@@ -32,6 +32,12 @@
 #include "mathematics.h"
 #include "rational.h"
 
+int fixme_mult(int a, int b)
+{
+	return a*b;
+}
+
+
 int av_reduce(int *dst_num, int *dst_den,
               int64_t num, int64_t den, int64_t max)
 {
