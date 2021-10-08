@@ -5,7 +5,6 @@ Import("env_modules")
 
 env_ffmpeglib = env_modules.Clone()
 
-
 # Commands to help produce the list of source files from ffmpeg
 # $ cd /tmp
 # $ git clone https://git.ffmpeg.org/ffmpeg.git
@@ -25,31 +24,13 @@ else:
     env_ffmpeglib.Append(CCFLAGS=["-include", '"libavutil/internal.h"'])
 #    env_ffmpeglib.Append(CCFLAGS=["-include", '"libavutil/intmath.h"'])
 
-# TEMPORARY: Only until all webm example code has been removed
-env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libsimplewebm", "#thirdparty/libsimplewebm/libwebm", "#thirdparty/libwebm"])
-if env["builtin_libogg"]:
-    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libogg"])
-if env["builtin_libvorbis"]:
-    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libvorbis"])
-if env["builtin_opus"]:
-    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/opus"])
-
-if env["builtin_libvpx"]:
-    env_ffmpeglib.Prepend(CPPPATH=["#thirdparty/libvpx"])
-    #SConscript("libvpx/SCsub")
-
-
-#libavutil/internal.h
-
-
 # Now you can copy the contents of the files.txt into this file.
 # Thirdparty source files
 
-thirdparty_obj = []
+libffmpeg_obj = []
 
-# Not unbundled for now as they are not commonly available as shared library
-thirdparty_dir = "#modules/ffmpeg/"
-thirdparty_sources = [
+libffmpeg_dir = "#modules/libffmpeg/"
+libffmpeg_sources = [
     "libavdevice/alldevices.c",
     "libavdevice/alsa.c",
     "libavdevice/alsa_dec.c",
@@ -2023,51 +2004,18 @@ thirdparty_sources = [
     "libavutil/xga_font_data.c",
     "libavutil/xtea.c"
 ]
-thirdparty_sources = [thirdparty_dir + file for file in thirdparty_sources]
+libffmpeg_sources = [libffmpeg_dir + file for file in libffmpeg_sources]
 
-env_ffmpeglib.Prepend(CPPPATH=[thirdparty_dir])
+env_ffmpeglib.Prepend(CPPPATH=[libffmpeg_dir])
+env.Prepend(CPPPATH=[libffmpeg_dir]) # FIXMENM: We should avoid this and make sure the avcpp wrapper only does (lib)ffmpeg includes in cpp files
 
 env_thirdparty = env_ffmpeglib.Clone()
 env_thirdparty.disable_warnings()
-env_thirdparty.add_source_files(thirdparty_obj, thirdparty_sources)
-env.modules_sources += thirdparty_obj
+env_thirdparty.add_source_files(libffmpeg_obj, libffmpeg_sources)
+env.modules_sources += libffmpeg_obj
 
 #
 module_obj = []
-
-# avcpp (ffmpeg C++ wrapper) sources
-avcpp_obj = []
-avcpp_dir = "#modules/avcpp/"
-avcpp_sources = [
-    "src/audioresampler.cpp",
-    "src/averror.cpp",
-    "src/avtime.cpp",
-    "src/avutils.cpp",
-    "src/codeccontext.cpp",
-    "src/codec.cpp",
-    "src/dictionary.cpp",
-    "src/formatcontext.cpp",
-    "src/format.cpp",
-    "src/frame.cpp",
-    "src/packet.cpp",
-    "src/pixelformat.cpp",
-    "src/av_rational.cpp",
-    "src/rect.cpp",
-    "src/sampleformat.cpp",
-    "src/stream.cpp",
-    "src/timestamp.cpp",
-    "src/videorescaler.cpp",
-    "src/filters/buffersink.cpp",
-    "src/filters/buffersrc.cpp",
-    "src/filters/filtercontext.cpp",
-    "src/filters/filter.cpp",
-    "src/filters/filtergraph.cpp",
-    "src/filters/filterpad.cpp"
-]
-
-avcpp_sources = [avcpp_dir + file for file in avcpp_sources]
-env_ffmpeglib.add_source_files(module_obj, avcpp_sources)
-env_ffmpeglib.Prepend(CPPPATH=["#modules/avcpp/src"])
 
 # Godot source files
 
@@ -2075,4 +2023,4 @@ env_ffmpeglib.add_source_files(module_obj, "*.cpp")
 env.modules_sources += module_obj
 
 # Needed to force rebuilding the module files when the thirdparty library is updated.
-env.Depends(module_obj, thirdparty_obj)
+env.Depends(module_obj, libffmpeg_obj)
