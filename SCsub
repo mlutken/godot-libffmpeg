@@ -2051,7 +2051,7 @@ avcpp_sources = [
     "src/frame.cpp",
     "src/packet.cpp",
     "src/pixelformat.cpp",
-    "src/rational.cpp",
+    "src/av_rational.cpp",
     "src/rect.cpp",
     "src/sampleformat.cpp",
     "src/stream.cpp",
