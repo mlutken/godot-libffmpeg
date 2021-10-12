@@ -13,8 +13,9 @@ env_ffmpeglib = env_modules.Clone()
 # $ make -j 4 | grep --line-buffered "^CC" | grep --line-buffered -v "warning:" | sed -u -e "s/\.o/.c\",/g" |  sed -u -e "s/^CC[[:space:]]/\"/g" > files.txt
 ###
 # ARCH_X86
-env_ffmpeglib.Append(CPPDEFINES=["ARCH_X86"])
-env_ffmpeglib.Append(CPPDEFINES=["HAVE_BIGENDIAN=0"])
+# FIXME: Right now moved to main SConstruct file !!!
+#env_ffmpeglib.Append(CPPDEFINES=["ARCH_X86"])
+#env_ffmpeglib.Append(CPPDEFINES=["HAVE_BIGENDIAN=0"])
 
 # https://docs.microsoft.com/en-us/cpp/build/reference/fi-name-forced-include-file?view=msvc-160
 if env["platform"] == "uwp":
@@ -2013,6 +2014,11 @@ env_thirdparty = env_ffmpeglib.Clone()
 env_thirdparty.disable_warnings()
 env_thirdparty.add_source_files(libffmpeg_obj, libffmpeg_sources)
 env.modules_sources += libffmpeg_obj
+
+#if env["platform"] == "linuxbsd":
+#    LIBS = env.get("LIBS", "")
+#    env.Append(LIBS=["avformat", "avcodec", "avutil", "avfilter", "swresample", "swscale", "OpenCL", "bz2", "va", "va-drm", "va-x11", "lzma"])
+
 
 #
 module_obj = []
