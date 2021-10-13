@@ -88,20 +88,21 @@ static av_always_inline av_const int ff_log2_16bit_c(unsigned int v)
  * @{
  */
 
-#if HAVE_FAST_CLZ
-#if AV_GCC_VERSION_AT_LEAST(3,4)
-#ifndef ff_ctz
-#define ff_ctz(v) __builtin_ctz(v)
-#endif
-#ifndef ff_ctzll
-#define ff_ctzll(v) __builtin_ctzll(v)
-#endif
-#ifndef ff_clz
-#define ff_clz(v) __builtin_clz(v)
-#endif
-#endif
-#endif
+//#if HAVE_FAST_CLZ
+//#if AV_GCC_VERSION_AT_LEAST(3,4)
+//#ifndef ff_ctz
+//#define ff_ctz(v) __builtin_ctz(v)
+//#endif
+//#ifndef ff_ctzll
+//#define ff_ctzll(v) __builtin_ctzll(v)
+//#endif
+//#ifndef ff_clz
+//#define ff_clz(v) __builtin_clz(v)
+//#endif
+//#endif
+//#endif
 
+#undef ff_ctz
 #ifndef ff_ctz
 #define ff_ctz ff_ctz_c
 /**
@@ -138,6 +139,7 @@ static av_always_inline av_const int ff_ctzll_c(long long v)
 }
 #endif
 
+#undef ff_clz
 #ifndef ff_clz
 #define ff_clz ff_clz_c
 static av_always_inline av_const unsigned ff_clz_c(unsigned x)

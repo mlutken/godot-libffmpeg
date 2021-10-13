@@ -531,6 +531,8 @@ libffmpeg_sources = [
     "libavformat/daudenc.c",
     "libavformat/dcstr.c",
     "libavformat/derf.c",
+    "libavformat/demux.c",
+#####    "libavformat/demuxer_list.c",
     "libavformat/dfa.c",
     "libavformat/dhav.c",
     "libavformat/diracdec.c",
@@ -828,6 +830,7 @@ libffmpeg_sources = [
     "libavformat/sdr2.c",
     "libavformat/sdsdec.c",
     "libavformat/sdxdec.c",
+    "libavformat/seek.c",
     "libavformat/segafilm.c",
     "libavformat/segafilmenc.c",
     "libavformat/segment.c",
@@ -1252,7 +1255,7 @@ libffmpeg_sources = [
     "libavcodec/h263dec.c",
     "libavcodec/h263dsp.c",
     "libavcodec/h2645_parse.c",
-    "libavcodec/h264_cabac.c",
+##    "libavcodec/h264_cabac.c",
     "libavcodec/h264_cavlc.c",
     "libavcodec/h264_direct.c",
     "libavcodec/h264_levels.c",
@@ -2015,9 +2018,10 @@ env_thirdparty.disable_warnings()
 env_thirdparty.add_source_files(libffmpeg_obj, libffmpeg_sources)
 env.modules_sources += libffmpeg_obj
 
-#if env["platform"] == "linuxbsd":
-#    LIBS = env.get("LIBS", "")
+if env["platform"] == "linuxbsd":
+    LIBS = env.get("LIBS", "")
 #    env.Append(LIBS=["avformat", "avcodec", "avutil", "avfilter", "swresample", "swscale", "OpenCL", "bz2", "va", "va-drm", "va-x11", "lzma"])
+    env.Append(LIBS=["OpenCL", "bz2", "va", "va-drm", "va-x11", "lzma"])
 
 
 #
